@@ -1,20 +1,35 @@
 import React from "react";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
-const LeftSmall = styled.View`
-  margin-left: ${(props) => props.theme.space[1]};
+const positions = {
+  top: "margin-top",
+  bottom: "margin-bottom",
+  left: "margin-left",
+  right: "margin-right",
+};
+
+const sizesIndex = {
+  sm: 1,
+  md: 2,
+  lg: 3,
+  xl: 4,
+  xxl: 5,
+};
+
+const getVariant = (position, size, theme) => {
+  const property = positions[position];
+  const sizeIndex = sizesIndex[size];
+  const sizeValue = theme.space[sizeIndex];
+
+  return `${property}: ${sizeValue};`;
+};
+
+const SpacerView = styled.View`
+  ${({ variant }) => variant}
 `;
 
-const LeftMedium = styled.View`
-  margin-left: ${(props) => props.theme.space[2]};
-`;
-
-export const Spacer = ({ variant }) => {
-  if (variant === "left.small") {
-    return <LeftSmall />;
-  }
-  if (variant === "left.medium") {
-    return <LeftMedium />;
-  }
-  return <LeftSmall />;
+export const Spacer = ({ position, size, children }) => {
+  const theme = useTheme();
+  const variant = getVariant(position, size, theme);
+  return <SpacerView variant={variant}>{children}</SpacerView>;
 };

@@ -95,10 +95,12 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
             ) : (
               <ClosedText>Closed</ClosedText>
             )}
-            <Spacer variant="left.medium" />
-            <OpeningHours>{openingHours}</OpeningHours>
-            <Spacer variant="left.medium" />
-            <Icon name={icon} size={20} />
+            <Spacer position={"left"} size={"md"}>
+              <OpeningHours>{openingHours}</OpeningHours>
+            </Spacer>
+            <Spacer position={"left"} size={"md"}>
+              <Icon name={icon} size={20} />
+            </Spacer>
           </StateInfoContainer>
         </SvgContainer>
         <Address>{address}</Address>
