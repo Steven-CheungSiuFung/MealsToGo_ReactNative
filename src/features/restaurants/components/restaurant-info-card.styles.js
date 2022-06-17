@@ -32,3 +32,8 @@ export const StateInfoContainer = styled.View`
   justify-content: flex-end;
   align-items: center;
 `;
+
+export const Icon = styled.Image`
+  width: 15px;
+  height: 15px;
+`;

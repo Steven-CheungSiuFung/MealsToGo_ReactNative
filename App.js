@@ -3,10 +3,11 @@ import { Text } from "react-native";
 import { ThemeProvider } from "styled-components";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { SaveArea } from "./src/components/utility/save-area.component";
 import { RestaurantScreen } from "./src/features/restaurants/screens/restaurants.screen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { RestaurantContextProvider } from "./src/services/restaurants/restaurants.context";
 
 import { theme } from "./src/infrastructure/theme";
 
@@ -75,25 +76,27 @@ export default function App() {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="Restaurants"
-              component={RestaurantScreen}
-            />
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="Map"
-              component={MapScreen}
-            />
-            <Tab.Screen
-              options={{ headerShown: false }}
-              name="Settings"
-              component={SettingsScreen}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={screenOptions}>
+              <Tab.Screen
+                options={{ headerShown: false }}
+                name="Restaurants"
+                component={RestaurantScreen}
+              />
+              <Tab.Screen
+                options={{ headerShown: false }}
+                name="Map"
+                component={MapScreen}
+              />
+              <Tab.Screen
+                options={{ headerShown: false }}
+                name="Settings"
+                component={SettingsScreen}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantContextProvider>
       </ThemeProvider>
     </Fragment>
   );

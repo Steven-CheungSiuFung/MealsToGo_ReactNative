@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList } from "react-native";
 import styled from "styled-components/native";
+import { ActivityIndicator } from "react-native-paper";
 
 import { SaveArea } from "../../../components/utility/save-area.component";
 import { SearchBar } from "../components/search-bar.component";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+
+import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 
@@ -21,7 +24,17 @@ const RestaurantsListContainer = styled.View`
   background-color: white;
 `;
 
+const LoadingView = styled.View`
+  flex: 1;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`;
+
 export const RestaurantScreen = () => {
+  const { restaurants, isLoading, isError } = useContext(RestaurantContext);
+
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
 
@@ -30,27 +43,25 @@ export const RestaurantScreen = () => {
       <SearchBarView>
         <SearchBar searchQuery={searchQuery} onChangeSearch={onChangeSearch} />
       </SearchBarView>
-      <RestaurantsListContainer>
-        <FlatList
-          data={[
-            { name: 1 },
-            { name: 2 },
-            { name: 3 },
-            { name: 4 },
-            { name: 5 },
-            { name: 6 },
-            { name: 7 },
-            { name: 8 },
-          ]}
-          renderItem={() => (
-            <Spacer position={"bottom"} size={"lg"}>
-              <RestaurantInfoCard />
-            </Spacer>
-          )}
-          keyExtractor={(item) => item.name}
-          // contentContainerStyle={{ padding: 16 }}
-        />
-      </RestaurantsListContainer>
+      {isLoading ? (
+        <LoadingView>
+          <ActivityIndicator animating={true} size={50} color={"gray"} />
+        </LoadingView>
+      ) : (
+        <RestaurantsListContainer>
+          <FlatList
+            data={restaurants}
+            renderItem={({ item }) => {
+              return (
+                <Spacer position={"bottom"} size={"lg"}>
+                  <RestaurantInfoCard restaurant={item} />
+                </Spacer>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        </RestaurantsListContainer>
+      )}
     </SaveArea>
   );
 };
