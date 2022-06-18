@@ -17,15 +17,19 @@ import {
   Icon,
 } from "./restaurant-info-card.styles";
 
-const ratingStar = (rating) => {
-  const ratingArray = Array.from(new Array(Math.floor(rating)));
+const ratingStar = (placeId, rating) => {
+  const ratingArray = Array.from(new Array(rating));
   return ratingArray.map((item, index) => (
-    <SvgXml key={index} xml={star} width={20} height={20} />
+    <SvgXml
+      key={`${placeId}-star-${index}`}
+      xml={star}
+      width={20}
+      height={20}
+    />
   ));
 };
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
-  console.log("Restaurant ===> ", restaurant);
   const {
     name = "Random Cafe",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
@@ -34,8 +38,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     ],
     address = "57 some ramdom street",
     openingHours = true,
-    rating = 4,
+    rating = 1,
     isClosedTemporarily = false,
+    placeId = "id",
   } = restaurant;
 
   return (
@@ -44,7 +49,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
       <Info>
         <Text variant={"secondaryTitle"}>{name}</Text>
         <SvgContainer>
-          <RatingStarContainer>{ratingStar(rating)}</RatingStarContainer>
+          <RatingStarContainer>
+            {ratingStar(placeId, rating)}
+          </RatingStarContainer>
           <StateInfoContainer>
             {!isClosedTemporarily ? (
               <SvgXml xml={open} width={20} height={20} />

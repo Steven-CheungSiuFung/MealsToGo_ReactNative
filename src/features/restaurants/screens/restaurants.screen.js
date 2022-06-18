@@ -33,15 +33,21 @@ const LoadingView = styled.View`
 `;
 
 export const RestaurantScreen = () => {
+  /*
+  <The Data Flow>
+    1. user type in a keyword in SearchBar ==> (keyword) -- onSubmit --> LocationContext --> location.service
+    2. get coordinate by api request from location service ==> (keyword) -- API request -- response: (coordinate) --> LocationContext
+    3. passing coordinate to restaurant.service: LocationContext ==> (coordinate) --> RestaurantContext --> restaurant.service
+    4. get restaurants by api request from restaurant.service ==> (coordinate) -- API request -- response: (restaurants) --> RestaurantContext
+    5. trigger re-rendering of restaurants list;
+  
+  */
   const { restaurants, isLoading, isError } = useContext(RestaurantContext);
-
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
 
   return (
     <SaveArea>
       <SearchBarView>
-        <SearchBar searchQuery={searchQuery} onChangeSearch={onChangeSearch} />
+        <SearchBar />
       </SearchBarView>
       {isLoading ? (
         <LoadingView>
@@ -58,7 +64,7 @@ export const RestaurantScreen = () => {
                 </Spacer>
               );
             }}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => item.placeId}
           />
         </RestaurantsListContainer>
       )}

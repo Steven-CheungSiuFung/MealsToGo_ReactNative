@@ -1,9 +1,10 @@
 import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
-export const restaurantsRequest = (location = "37.7749295,-122.4194155") => {
+export const restaurantsRequest = (coordinate) => {
+  console.log("request for restaurants's coordinate ==> ", coordinate);
   return new Promise((resolve, reject) => {
-    const mock = mocks[location];
+    const mock = mocks[coordinate];
     if (!mock) {
       reject("not found");
     }
@@ -18,6 +19,8 @@ export const restaurantsTransform = ({ results = [] }) => {
     ];
     return {
       ...restaurant,
+      address: restaurant.vicinity,
+      rating: Math.floor(restaurant.rating),
       openingHours:
         restaurant.opening_hours && restaurant.opening_hours.open_now,
       isClosedTemporarily: restaurant.business_status === "CLOSED_TEMPORARILY",
