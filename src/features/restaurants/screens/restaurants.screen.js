@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Pressable, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -32,7 +32,7 @@ const LoadingView = styled.View`
   background-color: white;
 `;
 
-export const RestaurantScreen = () => {
+export const RestaurantScreen = ({ navigation }) => {
   /*
   <The Data Flow>
     1. user type in a keyword in SearchBar ==> (keyword) -- onSubmit --> LocationContext --> location.service
@@ -59,9 +59,13 @@ export const RestaurantScreen = () => {
             data={restaurants}
             renderItem={({ item }) => {
               return (
-                <Spacer position={"bottom"} size={"lg"}>
-                  <RestaurantInfoCard restaurant={item} />
-                </Spacer>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("RestaurantDetail")}
+                >
+                  <Spacer position={"bottom"} size={"lg"}>
+                    <RestaurantInfoCard restaurant={item} />
+                  </Spacer>
+                </TouchableOpacity>
               );
             }}
             keyExtractor={(item, index) => item.placeId}
