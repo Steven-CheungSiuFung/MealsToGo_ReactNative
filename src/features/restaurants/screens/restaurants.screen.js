@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList, Pressable, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator } from "react-native-paper";
@@ -6,8 +6,10 @@ import { ActivityIndicator } from "react-native-paper";
 import { SaveArea } from "../../../components/utility/save-area.component";
 import { SearchBar } from "../components/search-bar.component";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
 
 import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
+import { FavouritesContext } from "../../../services/favourites/favourites.context";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 
@@ -43,12 +45,23 @@ export const RestaurantScreen = ({ navigation }) => {
   
   */
   const { restaurants, isLoading, isError } = useContext(RestaurantContext);
+  const { favourites } = useContext(FavouritesContext);
+  const [isFavouritesBarToggle, setIsFavouritesBarToggle] = useState(false);
 
   return (
     <SaveArea>
       <SearchBarView>
-        <SearchBar />
+        <SearchBar
+          isFavouritesBarToggle={isFavouritesBarToggle}
+          setIsFavouritesBarToggle={setIsFavouritesBarToggle}
+        />
       </SearchBarView>
+      {isFavouritesBarToggle && (
+        <FavouritesBar
+          favourites={favourites}
+          navigateToDetail={navigation.navigate}
+        />
+      )}
       {isLoading ? (
         <LoadingView>
           <ActivityIndicator animating={true} size={50} color={"gray"} />

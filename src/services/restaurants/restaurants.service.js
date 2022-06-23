@@ -3,7 +3,6 @@ import camelize from "camelize";
 
 export const restaurantsRequest = (coordinate) => {
   const coordinateString = `${coordinate.lat},${coordinate.lng}`;
-  console.log("request for restaurants's coordinate ==> ", coordinateString);
   return new Promise((resolve, reject) => {
     const mock = mocks[coordinateString];
     if (!mock) {

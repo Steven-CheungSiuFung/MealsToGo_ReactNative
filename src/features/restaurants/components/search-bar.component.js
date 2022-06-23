@@ -3,7 +3,10 @@ import { Searchbar } from "react-native-paper";
 
 import { LocationContext } from "../../../services/location/location.context";
 
-export const SearchBar = () => {
+export const SearchBar = ({
+  isFavouritesBarToggle,
+  setIsFavouritesBarToggle,
+}) => {
   const [query, setQuery] = useState("toronto");
 
   const { onSearch, keyword } = useContext(LocationContext);
@@ -13,12 +16,18 @@ export const SearchBar = () => {
     onSearch(queryWord);
   };
 
+  const handleFavouritesBarToggle = () => {
+    setIsFavouritesBarToggle(!isFavouritesBarToggle);
+  };
+
   useEffect(() => {
     setQuery(keyword);
   }, [keyword]);
 
   return (
     <Searchbar
+      icon={isFavouritesBarToggle ? "heart" : "heart-outline"}
+      onIconPress={handleFavouritesBarToggle}
       placeholder="Search"
       onChangeText={setQuery}
       value={query}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
+import { WebView } from "react-native-webview";
 
 import { Text } from "../typography/text.component";
 
@@ -12,12 +13,16 @@ import {
 
 export const CompactRestaurantInfo = ({ restaurant }) => {
   const isAndorid = Platform.OS === "android";
-  const Image = isAndorid
-    ? CompactRestaurantImageAndroid
-    : CompactRestaurantImageIos;
+  const Image = isAndorid ? (
+    <CompactRestaurantImageAndroid>
+      <WebView source={{ uri: restaurant.photo[0] }} />
+    </CompactRestaurantImageAndroid>
+  ) : (
+    <CompactRestaurantImageIos source={{ uri: restaurant.photo[0] }} />
+  );
   return (
     <CompactRestaurantContainer>
-      <Image source={{ uri: restaurant.photo[0] }} />
+      {Image}
       <CompactRestaurantTextInfo>
         <Text variant={"caption"}>{restaurant.name}</Text>
       </CompactRestaurantTextInfo>

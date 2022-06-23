@@ -22,7 +22,6 @@ export const LocationContextProvider = ({ children }) => {
         setCoordiante(result.location);
         setViewport(result.viewport);
         setIsLoading(false);
-        console.log("location context return ==>", result.location);
       })
       .catch((err) => {
         setIsError(err);

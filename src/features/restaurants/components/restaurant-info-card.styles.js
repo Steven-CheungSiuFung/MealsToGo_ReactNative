@@ -33,7 +33,7 @@ export const StateInfoContainer = styled.View`
   align-items: center;
 `;
 
-export const Icon = styled.Image`
+export const TypesIcon = styled.Image`
   width: 15px;
   height: 15px;
 `;

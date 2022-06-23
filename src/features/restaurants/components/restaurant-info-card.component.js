@@ -3,6 +3,7 @@ import { SvgXml } from "react-native-svg";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
+import { Favourites } from "../../../components/favourites/favourites.component";
 
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
@@ -14,7 +15,7 @@ import {
   RatingStarContainer,
   SvgContainer,
   StateInfoContainer,
-  Icon,
+  TypesIcon,
 } from "./restaurant-info-card.styles";
 
 const ratingStar = (placeId, rating) => {
@@ -45,6 +46,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <RestaurantCard elevation={5}>
+      <Favourites restaurant={restaurant} />
       <RestaurantCardCover source={{ uri: photo[0] }} />
       <Info>
         <Text variant={"secondaryTitle"}>{name}</Text>
@@ -64,7 +66,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
               </Spacer>
             )}
             <Spacer position={"left"} size={"md"}>
-              <Icon source={{ uri: icon }} />
+              <TypesIcon source={{ uri: icon }} />
             </Spacer>
           </StateInfoContainer>
         </SvgContainer>
