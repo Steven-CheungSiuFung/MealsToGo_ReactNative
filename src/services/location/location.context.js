@@ -6,6 +6,7 @@ export const LocationContext = createContext();
 export const LocationContextProvider = ({ children }) => {
   const [keyword, setKeyword] = useState("toronto");
   const [coordinate, setCoordiante] = useState(null);
+  const [viewport, setViewport] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
 
@@ -17,10 +18,11 @@ export const LocationContextProvider = ({ children }) => {
   useEffect(() => {
     locationRequest(keyword)
       .then(locationTransform)
-      .then((coordinateString) => {
-        setCoordiante(coordinateString);
+      .then((result) => {
+        setCoordiante(result.location);
+        setViewport(result.viewport);
         setIsLoading(false);
-        console.log("location context return ==>", coordinateString);
+        console.log("location context return ==>", result.location);
       })
       .catch((err) => {
         setIsError(err);
@@ -30,7 +32,7 @@ export const LocationContextProvider = ({ children }) => {
 
   return (
     <LocationContext.Provider
-      value={{ keyword, isLoading, isError, onSearch, coordinate }}
+      value={{ keyword, isLoading, isError, onSearch, coordinate, viewport }}
     >
       {children}
     </LocationContext.Provider>

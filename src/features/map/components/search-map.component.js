@@ -3,7 +3,7 @@ import { Searchbar } from "react-native-paper";
 
 import { LocationContext } from "../../../services/location/location.context";
 
-export const SearchBar = () => {
+export const SearchBarMap = () => {
   const [query, setQuery] = useState("toronto");
 
   const { onSearch, keyword } = useContext(LocationContext);
@@ -20,6 +20,7 @@ export const SearchBar = () => {
   return (
     <Searchbar
       placeholder="Search"
+      icon="map-marker-radius-outline"
       onChangeText={setQuery}
       value={query}
       onSubmitEditing={handleSubmit}

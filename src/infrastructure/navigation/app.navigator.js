@@ -6,14 +6,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { SaveArea } from "../../components/utility/save-area.component";
 import { RestaurantNavigator } from "./restaurants.navigator";
-
-function MapScreen() {
-  return (
-    <SaveArea>
-      <Text>Map Screen!</Text>
-    </SaveArea>
-  );
-}
+import { MapScreen } from "../../features/map/screens/map.screen";
 
 function SettingsScreen() {
   return (

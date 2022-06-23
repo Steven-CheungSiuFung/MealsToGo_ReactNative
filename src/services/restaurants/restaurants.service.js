@@ -2,9 +2,10 @@ import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
 export const restaurantsRequest = (coordinate) => {
-  console.log("request for restaurants's coordinate ==> ", coordinate);
+  const coordinateString = `${coordinate.lat},${coordinate.lng}`;
+  console.log("request for restaurants's coordinate ==> ", coordinateString);
   return new Promise((resolve, reject) => {
-    const mock = mocks[coordinate];
+    const mock = mocks[coordinateString];
     if (!mock) {
       reject("not found");
     }
