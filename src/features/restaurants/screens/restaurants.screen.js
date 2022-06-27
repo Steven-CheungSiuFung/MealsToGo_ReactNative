@@ -19,7 +19,7 @@ const SearchBarView = styled.View`
   align-items: center;
 `;
 
-const RestaurantsListContainer = styled.View`
+export const RestaurantsListContainer = styled.View`
   flex: 1;
   flex-grow: 1;
   padding: ${(props) => props.theme.space[2]};

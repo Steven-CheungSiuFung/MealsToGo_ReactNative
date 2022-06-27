@@ -17,7 +17,7 @@ export const CompactRestaurantImageIos = styled.Image`
 `;
 
 export const CompactRestaurantImageAndroid = styled.View`
-  width: 150px;
+  width: 100%;
   height: 120px;
   border-radius: 10px;
   overflow: hidden;

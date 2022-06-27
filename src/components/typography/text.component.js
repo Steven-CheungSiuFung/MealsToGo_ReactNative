@@ -28,11 +28,18 @@ const secondaryTitle = (theme) => `
     font-weight: ${theme.fontWeights.medium};
 `;
 
+const title = (theme) => `
+font-family: ${theme.fonts.heading};
+font-size: ${theme.fontSizes.h4};
+font-weight: ${theme.fontWeights.medium};
+`;
+
 const variants = {
   body,
   secondaryTitle,
   caption,
   error,
+  title,
 };
 
 export const Text = styled.Text`

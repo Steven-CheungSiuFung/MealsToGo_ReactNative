@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { FIREBASE_CONFIG } from "@env";
+import { initializeApp } from "firebase/app";
 
 import { ThemeProvider } from "styled-components";
 
 import { Navigation } from "./src/infrastructure/navigation";
 
-import { RestaurantContextProvider } from "./src/services/restaurants/restaurants.context";
-import { LocationContextProvider } from "./src/services/location/location.context";
-import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 import { theme } from "./src/infrastructure/theme";
 
@@ -16,6 +16,10 @@ import {
 } from "@expo-google-fonts/oswald";
 
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+
+const firebaseConfig = JSON.parse(FIREBASE_CONFIG);
+
+initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -33,13 +37,9 @@ export default function App() {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantContextProvider>
-              <Navigation />
-            </RestaurantContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <Navigation />
+        </AuthenticationContextProvider>
       </ThemeProvider>
     </Fragment>
   );
